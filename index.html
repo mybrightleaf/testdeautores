@@ -404,9 +404,9 @@
     }
     .archetype-subtitle {
       font-family: 'DM Sans', sans-serif;
-      font-size: 13px;
-      color: rgba(232,226,216,0.45);
+      font-size: 17px;
       font-style: italic;
+      font-weight: 400;
       margin-bottom: 20px;
       animation: slideUp 0.5s ease-out 0.15s both;
     }
@@ -438,9 +438,9 @@
 
     .section-label {
       font-family: 'DM Sans', sans-serif;
-      font-size: 11px;
-      font-weight: 600;
-      letter-spacing: 0.2em;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.15em;
       text-transform: uppercase;
       color: rgba(232,226,216,0.35);
       margin-bottom: 14px;
@@ -635,13 +635,13 @@
       <p class="archetype-subtitle" id="result-subtitle"></p>
       <p class="result-tagline" id="result-tagline"></p>
     </div>
-    <div class="card"><p id="result-description"></p></div>
+    <div class="card"><p id="result-description" style="text-align:center"></p></div>
     <div class="strengths-section">
-      <p class="section-label">Tus fortalezas</p>
+      <p class="section-label" id="label-fortalezas">Tus fortalezas</p>
       <div class="pills" id="result-strengths"></div>
     </div>
     <div class="steps-section">
-      <p class="section-label">Tus próximos 3 pasos</p>
+      <p class="section-label" id="label-pasos">Tus próximos 3 pasos</p>
       <div class="steps-list" id="result-steps"></div>
     </div>
     <div class="cta-card" id="result-cta-card">
@@ -813,7 +813,7 @@ function renderQuestion() {
   // Update progress bar
   for (let i = 0; i < 5; i++) {
     const seg = document.getElementById(`seg-${i}`);
-    seg.classList.toggle('filled', i <= state.currentQ);
+    seg.classList.toggle('filled', i < state.currentQ);
   }
 
   // Render options
@@ -929,7 +929,12 @@ function showResult(name) {
   badge.style.border = `1px solid ${a.color}40`;
   badge.style.color = a.color;
 
-  document.getElementById('result-subtitle').textContent = a.subtitle;
+  const subtitleEl = document.getElementById('result-subtitle');
+  subtitleEl.textContent = a.subtitle;
+  subtitleEl.style.color = a.color;
+
+  document.getElementById('label-fortalezas').style.color = a.color;
+  document.getElementById('label-pasos').style.color = a.color;
   document.getElementById('result-tagline').textContent = `"${a.tagline}"`;
   document.getElementById('result-description').textContent = a.description;
 
