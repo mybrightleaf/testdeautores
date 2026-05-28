@@ -490,8 +490,16 @@
       font-family: 'DM Sans', sans-serif;
       font-size: 15px;
       color: rgba(232,226,216,0.75);
-      margin-bottom: 20px;
+      margin-bottom: 12px;
       line-height: 1.6;
+    }
+    .cta-ephemeral-note {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 15px;
+      color: rgba(232,226,216,0.65);
+      line-height: 1.6;
+      font-weight: 300;
+      margin-top: 10px;
     }
 
     .share-section { text-align: center; }
@@ -601,16 +609,16 @@
     <div class="email-header">
       <div class="check-icon">✦</div>
       <h2>Tu resultado está listo.</h2>
-      <p>Déjanos tu email para recibirlo con un plan de acción personalizado.</p>
+      <p>Descubre qué tipo de autor eres y recibe 3 pasos concretos para avanzar.</p>
     </div>
     <div class="input-group">
       <div class="field-wrap">
         <input class="input-field" type="text" id="input-name" placeholder="Tu nombre" autocomplete="given-name" />
-        <p class="field-error" id="error-name">Por favor ingresá tu nombre.</p>
+        <p class="field-error" id="error-name">Por favor ingresa tu nombre.</p>
       </div>
       <div class="field-wrap">
         <input class="input-field" type="email" id="input-email" placeholder="Tu email" autocomplete="email" />
-        <p class="field-error" id="error-email">Revisá el email — parece que le falta algo.</p>
+        <p class="field-error" id="error-email">Revisa el email — parece que le falta algo.</p>
       </div>
     </div>
     <p class="error-msg" id="error-msg">Hubo un problema al guardar tus datos. Tu resultado igual se mostrará.</p>
@@ -638,7 +646,7 @@
     </div>
     <div class="cta-card" id="result-cta-card">
       <p class="cta-card-text" id="result-cta-text"></p>
-      <button class="cta-btn full" id="result-pack-btn"></button>
+      <p class="cta-ephemeral-note" id="result-ephemeral-note">Este resultado no se guardará cuando cierres la página. Compártelo o toma una captura antes de irte.</p>
     </div>
     <div class="share-section">
       <p class="section-label" style="text-align:center;margin-bottom:16px">Compartí tu resultado</p>
@@ -888,16 +896,23 @@ function handleEmailSubmit() {
 
   const archetype = state.result;
 
+  const SHEETS_URL = 'https://script.google.com/macros/s/AKfycbzMC4Dlo_7zkSUx3DhFU_ebBk93SmJlKI8aFNuqRrac7pu2ILDWPT5KjENH1Wj2pnJEdA/exec';
+
+  // Send directly to Google Sheets (works on GitHub Pages and Vercel)
+  fetch(SHEETS_URL, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ name, email, archetype })
+  }).catch(() => {});
+
+  // Send to GetResponse via Vercel serverless (only works on Vercel)
   fetch('/api/subscribe', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ name, email, archetype })
-  })
-  .then(r => r.json())
-  .catch(() => ({ ok: false }))
-  .finally(() => {
-    showResult(name);
-  });
+  }).catch(() => {});
+
+  showResult(name);
 }
 
 function showResult(name) {
@@ -944,19 +959,17 @@ function showResult(name) {
     stepsContainer.appendChild(div);
   });
 
-  // CTA card
+  // CTA card — fixed purple accent
+  const PURPLE = '#8B7BA8';
   const card = document.getElementById('result-cta-card');
-  card.style.background = `linear-gradient(135deg, ${a.color}08, ${a.color}15)`;
-  card.style.border = `1px solid ${a.color}20`;
+  card.style.background = `linear-gradient(135deg, ${PURPLE}22, ${PURPLE}38)`;
+  card.style.border = `1px solid ${PURPLE}70`;
+  card.style.boxShadow = `0 0 28px ${PURPLE}28`;
 
   const firstName = name ? name.split(' ')[0] : '';
   document.getElementById('result-cta-text').innerHTML = firstName
-    ? `¡Listo, <strong style="color:${a.color}">${firstName}</strong>! Tu plan de acción va en camino a tu correo.`
-    : `Tu plan de acción personalizado para <strong style="color:${a.color}">${a.name}</strong> va en camino a tu correo.`;
-
-  const packBtn = document.getElementById('result-pack-btn');
-  packBtn.textContent = `Conocer el ${a.pack} →`;
-  packBtn.style.background = `linear-gradient(135deg, ${a.color}, ${a.color}99)`;
+    ? `¡Listo, <strong style="color:${PURPLE}">${firstName}</strong>! Revisa tu correo — te enviamos algo especial solo para ti.`
+    : `¡Listo! Revisa tu correo — te enviamos algo especial solo para ti.`;
 
   showScreen('screen-result');
 }
@@ -968,7 +981,7 @@ function shareWhatsApp() {
   const params = new URLSearchParams({ r: state.result });
   if (firstName) params.set('n', firstName);
   const url = `${base}?${params.toString()}`;
-  const text = `Hice el test de My Bright Leaf y soy ${a.name} 📖\n"${a.tagline}"\n\n¿Qué tipo de autor sos vos? Hacé el test gratis → ${url}`;
+  const text = `Hice el test de My Bright Leaf y soy ${a.name} 📖\n"${a.tagline}"\n\n¿Qué tipo de autor eres tú? Haz el test gratis → ${url}`;
   window.open(`https://wa.me/?text=${encodeURIComponent(text)}`, '_blank');
 }
 
@@ -1033,8 +1046,8 @@ document.getElementById('input-email').addEventListener('input', () => clearFiel
     const banner = document.getElementById('guest-banner');
     const bannerText = document.getElementById('guest-banner-text');
     bannerText.textContent = n
-      ? `${n} es ${ARCHETYPES[r].name}. ¿Qué tipo de autor sos vos?`
-      : `Este es el resultado de alguien. ¿Qué tipo de autor sos vos?`;
+      ? `${n} es ${ARCHETYPES[r].name}. ¿Qué tipo de autor eres tú?`
+      : `Este es el resultado de alguien. ¿Qué tipo de autor eres tú?`;
     banner.style.display = 'block';
   } else {
     showScreen('screen-intro');
