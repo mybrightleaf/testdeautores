@@ -899,9 +899,11 @@ function handleEmailSubmit() {
   const SHEETS_URL = 'https://script.google.com/macros/s/AKfycbzMC4Dlo_7zkSUx3DhFU_ebBk93SmJlKI8aFNuqRrac7pu2ILDWPT5KjENH1Wj2pnJEdA/exec';
 
   // Send directly to Google Sheets (works on GitHub Pages and Vercel)
+  // mode: 'no-cors' + text/plain evita el preflight CORS que bloquea Apps Script
   fetch(SHEETS_URL, {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
+    mode: 'no-cors',
+    headers: { 'Content-Type': 'text/plain' },
     body: JSON.stringify({ name, email, archetype })
   }).catch(() => {});
 
