@@ -384,17 +384,17 @@
       mix-blend-mode: multiply;
     }
     .archetype-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      padding: 8px 20px;
-      border-radius: 50px;
-      font-family: 'DM Sans', sans-serif;
-      font-size: 12px;
+      display: block;
+      font-family: 'Crimson Pro', Georgia, serif;
+      font-size: clamp(28px, 7vw, 38px);
       font-weight: 600;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      margin: 0 auto 16px;
+      font-style: italic;
+      letter-spacing: -0.01em;
+      text-align: center;
+      margin: 0 auto 12px;
+      background: none;
+      border: none;
+      padding: 0;
     }
     .archetype-subtitle {
       font-family: 'DM Sans', sans-serif;
@@ -688,7 +688,7 @@
       </div>
       <div class="field-wrap">
         <input class="input-field" type="email" id="input-email" placeholder="Tu email" autocomplete="email" />
-        <p class="field-error" id="error-email">Revisa el email — parece que le falta algo.</p>
+        <p class="field-error" id="error-email">Revisa el email, parece que le falta algo.</p>
       </div>
     </div>
     <p class="error-msg" id="error-msg">Hubo un problema al guardar tus datos. Tu resultado igual se mostrará.</p>
@@ -773,7 +773,7 @@ const ARCHETYPES = {
     color: "#B07A18",
     image: "lanzador.png",
     tagline: "Tu libro existe. Ahora necesita su momento de entrada al mundo.",
-    description: "Tu libro está listo o casi listo. No te falta contenido — te falta estrategia de salida. Sabes que publicar no es suficiente, que necesitas generar expectativa, pero no sabes por dónde empezar ni qué producir primero.",
+    description: "Tu libro está listo o casi listo. No te falta contenido, te falta estrategia de salida. Sabes que publicar no es suficiente, que necesitas generar expectativa, pero no sabes por dónde empezar ni qué producir primero.",
     strengths: ["Libro terminado o casi terminado", "Consciencia de que necesitas marketing", "Disposición a invertir en el lanzamiento"],
     nextSteps: [
       "Crea un booktrailer o video seller de 30-60 segundos",
@@ -790,7 +790,7 @@ const ARCHETYPES = {
     color: "#7060A8",
     image: "invisible.png",
     tagline: "Tu libro ya existe. El problema es que el mundo todavía no lo sabe.",
-    description: "Publicaste, quizá hasta estás en Amazon, pero las ventas no llegan. No tienes contenido para redes, no sabes cómo mostrar tu libro, y sientes que gritas al vacío. Tu libro merece lectores — solo necesita ser visible.",
+    description: "Publicaste, quizá hasta estás en Amazon, pero las ventas no llegan. No tienes contenido para redes, no sabes cómo mostrar tu libro, y sientes que gritas al vacío. Tu libro merece lectores, solo necesita ser visible.",
     strengths: ["Libro ya publicado", "Experiencia real como autor", "Presencia en al menos una plataforma"],
     nextSteps: [
       "Crea un calendario de contenido semanal con 3 publicaciones mínimo",
@@ -802,7 +802,7 @@ const ARCHETYPES = {
   },
   artesano: {
     name: "El Artesano",
-    subtitle: "el que hizo todo solo y se nota",
+    subtitle: "el autor que construyó su libro con sus propias manos",
     emoji: "◆",
     color: "#B06020",
     image: "artesano.png",
@@ -1021,8 +1021,8 @@ function showResult(name) {
 
   const badge = document.getElementById('result-badge');
   badge.textContent = a.name;
-  badge.style.background = `${a.color}18`;
-  badge.style.border = `1.5px solid ${a.color}40`;
+  badge.style.background = 'none';
+  badge.style.border = 'none';
   badge.style.color = a.color;
 
   const subtitleEl = document.getElementById('result-subtitle');
