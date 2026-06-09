@@ -6,11 +6,9 @@
   <title>¿Qué tipo de autor eres? · My Bright Leaf</title>
   <meta name="description" content="Responde 5 preguntas y descubre en qué etapa estás, qué necesita tu libro para avanzar y cuál es tu próximo paso más importante." />
 
-  <!-- Favicon -->
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%230A1A12'/><text y='78' x='50' text-anchor='middle' font-size='70' fill='%23D4A574'>✦</text></svg>" />
-  <meta name="theme-color" content="#0A1A12" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%23F6F0E6'/><text y='78' x='50' text-anchor='middle' font-size='70' fill='%23C4603A'>✦</text></svg>" />
+  <meta name="theme-color" content="#F6F0E6" />
 
-  <!-- Open Graph -->
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="My Bright Leaf" />
   <meta property="og:title" content="¿Qué tipo de autor eres?" />
@@ -19,73 +17,89 @@
   <meta property="og:image" content="https://tudominio.com/og-test-autores.jpg" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
-
-  <!-- Twitter / X -->
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="¿Qué tipo de autor eres?" />
   <meta name="twitter:description" content="Descubrí tu arquetipo editorial en 2 minutos. Test gratuito de My Bright Leaf." />
   <meta name="twitter:image" content="https://tudominio.com/og-test-autores.jpg" />
+
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --bg: #0A1A12;
-      --text: #E8E2D8;
-      --gold: #D4A574;
-      --gold-dark: #B8894E;
-      --cacao: #A0622A;
-      --cacao-dark: #6B3A12;
+      /* ── Palette ── */
+      --cream:      #FAFAF8;   /* blanco cálido — fondo principal  */
+      --cream-dark: #F2EDE6;   /* hover / fondo secundario         */
+      --parchment:  #E8E0D6;   /* bordes suaves                    */
+
+      --terra:      #C4603A;   /* terracota — CTA principal        */
+      --terra-dark: #A04C2A;
+      --terra-pale: #FAF0EB;
+
+      --amber:      #B07A18;   /* ámbar dorado — lanzador y acento */
+      --amber-pale: #FEF6E4;
+
+      --ink:        #130E09;   /* texto principal — máximo contraste */
+      --ink-med:    #4A3A2C;   /* texto secundario                   */
+      --ink-soft:   #8C7A6A;   /* texto muted                        */
+
+      --border:     rgba(20,14,9,0.08);
+      --border-med: rgba(20,14,9,0.14);
+
+      --shadow-sm:  0 2px 8px rgba(20,14,9,0.06);
+      --shadow-md:  0 6px 24px rgba(20,14,9,0.09);
+      --shadow-lg:  0 16px 48px rgba(20,14,9,0.12);
     }
 
     html, body {
-      background: var(--bg);
-      color: var(--text);
+      background: var(--cream);
+      color: var(--ink);
       font-family: 'Crimson Pro', Georgia, serif;
       min-height: 100vh;
       overflow-x: hidden;
     }
 
-    /* Grain overlay */
+    /* Subtle warm texture on background */
     body::before {
       content: '';
       position: fixed;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 90% 50% at 50% 0%, rgba(196,96,58,0.06) 0%, transparent 60%),
+        radial-gradient(ellipse 70% 40% at 100% 100%, rgba(176,122,24,0.05) 0%, transparent 55%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* Grain — lighter on bright bg */
+    body::after {
+      content: '';
+      position: fixed;
       inset: -50%;
-      width: 200%;
-      height: 200%;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+      width: 200%; height: 200%;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.025'/%3E%3C/svg%3E");
       animation: grain 8s steps(10) infinite;
       pointer-events: none;
       z-index: 0;
     }
 
     @keyframes grain {
-      0%, 100% { transform: translate(0,0); }
-      10% { transform: translate(-5%,-10%); }
-      30% { transform: translate(3%,-15%); }
-      50% { transform: translate(12%,9%); }
-      70% { transform: translate(9%,4%); }
-      90% { transform: translate(-1%,7%); }
+      0%,100%{transform:translate(0,0)}
+      10%{transform:translate(-5%,-10%)}
+      30%{transform:translate(3%,-15%)}
+      50%{transform:translate(12%,9%)}
+      70%{transform:translate(9%,4%)}
+      90%{transform:translate(-1%,7%)}
     }
-    @keyframes fadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
-    }
-    @keyframes slideUp {
-      from { opacity: 0; transform: translateY(30px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-    @keyframes expandLine {
-      from { width: 0; }
-      to { width: 60px; }
-    }
-    @keyframes optionReveal {
-      from { opacity: 0; transform: translateX(-15px); }
-      to { opacity: 1; transform: translateX(0); }
-    }
+    @keyframes fadeIn  { from{opacity:0} to{opacity:1} }
+    @keyframes slideUp { from{opacity:0;transform:translateY(30px)} to{opacity:1;transform:translateY(0)} }
+    @keyframes expandLine { from{width:0} to{width:60px} }
+    @keyframes optionReveal { from{opacity:0;transform:translateX(-15px)} to{opacity:1;transform:translateX(0)} }
 
+    /* ══ LAYOUT ══ */
     #app {
       position: relative;
       z-index: 1;
@@ -97,18 +111,17 @@
       flex-direction: column;
     }
 
-    /* ---- SCREENS ---- */
     .screen { display: none; flex: 1; flex-direction: column; }
     .screen.active { display: flex; animation: fadeIn 0.6s ease-out; }
 
-    /* ---- TYPOGRAPHY ---- */
+    /* ══ TYPOGRAPHY ══ */
     .label {
       font-family: 'DM Sans', sans-serif;
       font-size: 11px;
       font-weight: 600;
       letter-spacing: 0.2em;
       text-transform: uppercase;
-      color: rgba(232,226,216,0.4);
+      color: var(--ink-soft);
     }
 
     h1 {
@@ -116,11 +129,12 @@
       font-weight: 300;
       line-height: 1.15;
       letter-spacing: -0.02em;
+      color: var(--ink);
     }
     h1 em {
       font-weight: 600;
       font-style: italic;
-      background: linear-gradient(135deg, #D4A574, #E8C9A0);
+      background: linear-gradient(135deg, #C4603A, #E0924A);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
@@ -130,12 +144,13 @@
       font-weight: 400;
       line-height: 1.35;
       letter-spacing: -0.01em;
+      color: var(--ink);
     }
 
     .divider-line {
       width: 60px;
       height: 2px;
-      background: linear-gradient(90deg, #A0622A, transparent);
+      background: linear-gradient(90deg, var(--terra), transparent);
       margin: 28px 0;
       animation: expandLine 1s ease-out 0.5s both;
     }
@@ -144,18 +159,18 @@
       font-family: 'DM Sans', sans-serif;
       font-size: 16px;
       line-height: 1.7;
-      color: rgba(232,226,216,0.6);
+      color: var(--ink-med);
       font-weight: 300;
       max-width: 400px;
     }
 
-    /* ---- BUTTONS ---- */
+    /* ══ BUTTONS ══ */
     .cta-btn {
       padding: 16px 40px;
-      background: #A0622A;
+      background: var(--terra);
       border: none;
       border-radius: 50px;
-      color: #F5EDE3;
+      color: #FFF8F2;
       font-family: 'DM Sans', sans-serif;
       font-size: 16px;
       font-weight: 600;
@@ -163,22 +178,20 @@
       transition: all 0.3s ease;
       letter-spacing: 0.03em;
       display: inline-block;
+      box-shadow: 0 4px 18px rgba(196,96,58,0.28);
     }
     .cta-btn:hover {
+      background: var(--terra-dark);
       transform: translateY(-2px);
-      box-shadow: 0 8px 30px rgba(160,98,42,0.35);
+      box-shadow: 0 10px 32px rgba(196,96,58,0.36);
     }
-    .cta-btn:disabled {
-      opacity: 0.4;
-      pointer-events: none;
-    }
+    .cta-btn:disabled { opacity: 0.45; pointer-events: none; }
     .cta-btn.full { width: 100%; }
 
-    /* ---- INTRO SCREEN ---- */
+    /* ══ INTRO ══ */
     #screen-intro { justify-content: flex-start; gap: 40px; padding-top: 20px; }
 
-
-    /* ---- QUIZ SCREEN ---- */
+    /* ══ QUIZ ══ */
     #screen-quiz { gap: 0; }
 
     .progress-bar {
@@ -190,11 +203,11 @@
       flex: 1;
       height: 3px;
       border-radius: 2px;
-      background: rgba(232,226,216,0.08);
+      background: rgba(20,14,9,0.08);
       transition: background 0.5s ease;
     }
     .progress-segment.filled {
-      background: linear-gradient(90deg, #A0622A, #6B3A12);
+      background: linear-gradient(90deg, var(--terra), var(--terra-dark));
     }
 
     .question-counter {
@@ -203,7 +216,7 @@
       font-weight: 500;
       letter-spacing: 0.15em;
       text-transform: uppercase;
-      color: rgba(232,226,216,0.3);
+      color: var(--ink-soft);
       margin-bottom: 16px;
     }
 
@@ -213,6 +226,7 @@
       line-height: 1.35;
       margin-bottom: 36px;
       letter-spacing: -0.01em;
+      color: var(--ink);
     }
 
     .options-list {
@@ -224,79 +238,72 @@
     .option-btn {
       width: 100%;
       padding: 18px 24px;
-      background: rgba(232,226,216,0.03);
-      border: 1px solid rgba(232,226,216,0.1);
-      border-radius: 12px;
-      color: var(--text);
+      background: #FFFFFF;
+      border: 1.5px solid var(--border);
+      border-radius: 14px;
+      color: var(--ink);
       font-family: 'DM Sans', sans-serif;
       font-size: 15px;
       font-weight: 400;
       text-align: left;
       cursor: pointer;
-      transition: all 0.3s ease;
+      transition: all 0.25s ease;
       letter-spacing: 0.01em;
       line-height: 1.5;
       opacity: 0;
-    }
-    .option-btn {
       display: flex;
       align-items: flex-start;
       gap: 14px;
+      box-shadow: var(--shadow-sm);
     }
     .option-letter {
       font-family: 'DM Sans', sans-serif;
       font-size: 12px;
       font-weight: 600;
-      color: rgba(232,226,216,0.4);
-      background: rgba(232,226,216,0.06);
-      border-radius: 6px;
+      color: var(--ink-soft);
+      background: var(--cream-dark);
+      border-radius: 7px;
       width: 26px;
       height: 26px;
       display: flex;
       align-items: center;
       justify-content: center;
       flex-shrink: 0;
-      transition: all 0.3s ease;
+      transition: all 0.25s ease;
     }
-    .option-text {
-      padding-top: 3px;
-      line-height: 1.5;
-    }
+    .option-text { padding-top: 3px; line-height: 1.5; }
+
     .option-btn:hover {
-      background: rgba(232,226,216,0.08);
-      border-color: rgba(232,226,216,0.25);
+      background: var(--terra-pale);
+      border-color: rgba(196,96,58,0.3);
       transform: translateX(4px);
+      box-shadow: var(--shadow-md);
     }
     .option-btn:hover .option-letter {
-      color: #A0622A;
-      background: rgba(160,98,42,0.18);
-    }
-    .option-btn.selected .option-letter {
-      color: #A0622A;
-      background: rgba(160,98,42,0.22);
+      color: var(--terra);
+      background: rgba(196,96,58,0.15);
     }
     .option-btn.selected {
-      border-color: rgba(160,98,42,0.7);
-      background: rgba(160,98,42,0.15);
+      border-color: rgba(196,96,58,0.55);
+      background: var(--terra-pale);
+      box-shadow: 0 0 0 3px rgba(196,96,58,0.12), var(--shadow-md);
+    }
+    .option-btn.selected .option-letter {
+      color: var(--terra);
+      background: rgba(196,96,58,0.2);
     }
     .option-btn.faded {
       opacity: 0.3 !important;
       transform: scale(0.98);
       pointer-events: none;
+      box-shadow: none;
     }
-    .option-btn.revealed {
-      animation: optionReveal 0.4s ease-out forwards;
-    }
+    .option-btn.revealed { animation: optionReveal 0.4s ease-out forwards; }
 
-    .quiz-body {
-      transition: opacity 0.4s ease, transform 0.4s ease;
-    }
-    .quiz-body.transitioning {
-      opacity: 0;
-      transform: translateY(-20px);
-    }
+    .quiz-body { transition: opacity 0.4s ease, transform 0.4s ease; }
+    .quiz-body.transitioning { opacity: 0; transform: translateY(-20px); }
 
-    /* ---- EMAIL SCREEN ---- */
+    /* ══ EMAIL ══ */
     #screen-email {
       justify-content: center;
       gap: 32px;
@@ -304,21 +311,13 @@
     }
 
     .email-header { text-align: center; }
-    .email-header .check-icon {
-      font-size: 40px;
-      margin-bottom: 16px;
-      color: var(--gold);
-    }
-    .email-header h2 {
-      font-size: clamp(24px, 6vw, 32px);
-      font-weight: 400;
-      margin-bottom: 12px;
-    }
+    .email-header .check-icon { font-size: 40px; margin-bottom: 16px; color: var(--terra); }
+    .email-header h2 { font-size: clamp(24px, 6vw, 32px); font-weight: 400; margin-bottom: 12px; }
     .email-header p {
       font-family: 'DM Sans', sans-serif;
       font-size: 15px;
       line-height: 1.7;
-      color: rgba(232,226,216,0.6);
+      color: var(--ink-med);
       font-weight: 300;
     }
 
@@ -327,67 +326,62 @@
     .input-field {
       width: 100%;
       padding: 14px 20px;
-      background: rgba(232,226,216,0.05);
-      border: 1px solid rgba(232,226,216,0.15);
-      border-radius: 10px;
-      color: var(--text);
+      background: #FFFFFF;
+      border: 1.5px solid var(--border-med);
+      border-radius: 12px;
+      color: var(--ink);
       font-family: 'DM Sans', sans-serif;
       font-size: 15px;
       outline: none;
-      transition: border-color 0.3s ease;
+      transition: border-color 0.3s ease, box-shadow 0.3s ease;
+      box-shadow: var(--shadow-sm);
     }
-    .input-field:focus { border-color: rgba(160,98,42,0.6); }
-    .input-field::placeholder { color: rgba(232,226,216,0.3); }
+    .input-field:focus {
+      border-color: var(--terra);
+      box-shadow: 0 0 0 3px rgba(196,96,58,0.12);
+    }
+    .input-field::placeholder { color: var(--ink-soft); }
+    .input-field.invalid { border-color: #D4603A; }
 
     .form-note {
       font-family: 'DM Sans', sans-serif;
       font-size: 11px;
-      color: rgba(232,226,216,0.2);
+      color: var(--ink-soft);
       text-align: center;
     }
 
     .field-wrap { display: flex; flex-direction: column; gap: 6px; }
-
     .field-error {
       font-family: 'DM Sans', sans-serif;
       font-size: 12px;
       font-weight: 500;
-      color: #E8A87C;
+      color: #B84030;
       display: none;
       padding-left: 4px;
     }
     .field-error.visible { display: block; animation: fadeIn 0.3s ease-out; }
 
-    .input-field.invalid { border-color: rgba(232,168,124,0.7); }
-
     .error-msg {
       font-family: 'DM Sans', sans-serif;
       font-size: 13px;
-      color: #C4756E;
+      color: #B84030;
       text-align: center;
       display: none;
     }
     .error-msg.visible { display: block; }
 
-    /* ---- RESULT SCREEN ---- */
-    #screen-result {
-      gap: 32px;
-      animation: fadeIn 0.7s ease-out;
-    }
+    /* ══ RESULT ══ */
+    #screen-result { gap: 32px; animation: fadeIn 0.7s ease-out; }
 
     .result-header { text-align: center; padding-top: 20px; }
     .archetype-img {
       width: 100%;
       max-width: 380px;
-      border-radius: 16px;
+      border-radius: 0;
       margin: 0 auto 8px;
       display: block;
       animation: fadeIn 0.8s ease-out;
-    }
-    .result-emoji {
-      font-size: 44px;
-      margin-bottom: 16px;
-      animation: fadeIn 0.8s ease-out;
+      mix-blend-mode: multiply;
     }
     .archetype-badge {
       display: inline-flex;
@@ -415,24 +409,26 @@
       font-weight: 400;
       font-style: italic;
       line-height: 1.4;
-      color: rgba(232,226,216,0.85);
+      color: var(--ink-med);
       max-width: 400px;
       margin: 0 auto;
       animation: slideUp 0.5s ease-out 0.2s both;
     }
 
+    /* Cards */
     .card {
       padding: 24px;
-      background: rgba(232,226,216,0.03);
+      background: #FFFFFF;
       border-radius: 16px;
-      border: 1px solid rgba(232,226,216,0.06);
+      border: 1.5px solid var(--border);
       animation: slideUp 0.5s ease-out 0.4s both;
+      box-shadow: var(--shadow-sm);
     }
     .card p {
       font-family: 'DM Sans', sans-serif;
       font-size: 15px;
       line-height: 1.75;
-      color: rgba(232,226,216,0.65);
+      color: var(--ink-med);
       font-weight: 300;
     }
 
@@ -442,7 +438,7 @@
       font-weight: 700;
       letter-spacing: 0.15em;
       text-transform: uppercase;
-      color: rgba(232,226,216,0.35);
+      color: var(--ink-soft);
       margin-bottom: 14px;
     }
 
@@ -475,7 +471,7 @@
       font-family: 'DM Sans', sans-serif;
       font-size: 14px;
       line-height: 1.6;
-      color: rgba(232,226,216,0.6);
+      color: var(--ink-med);
       font-weight: 300;
       padding-top: 4px;
     }
@@ -489,25 +485,22 @@
     .cta-card-text {
       font-family: 'DM Sans', sans-serif;
       font-size: 15px;
-      color: rgba(232,226,216,0.75);
+      color: var(--ink-med);
       margin-bottom: 12px;
       line-height: 1.6;
     }
     .cta-ephemeral-note {
       font-family: 'DM Sans', sans-serif;
       font-size: 15px;
-      color: rgba(232,226,216,0.65);
+      color: var(--ink-soft);
       line-height: 1.6;
       font-weight: 300;
       margin-top: 10px;
     }
 
+    /* Share */
     .share-section { text-align: center; }
-    .share-buttons {
-      display: flex;
-      gap: 12px;
-      justify-content: center;
-    }
+    .share-buttons { display: flex; gap: 12px; justify-content: center; }
     .share-btn {
       display: flex;
       align-items: center;
@@ -521,34 +514,25 @@
       transition: all 0.3s ease;
       border: none;
     }
-    .share-wa {
-      background: #25D366;
-      color: #fff;
-    }
-    .share-wa:hover {
-      background: #1ebe5a;
-      transform: translateY(-2px);
-      box-shadow: 0 6px 20px rgba(37,211,102,0.3);
-    }
+    .share-wa { background: #25D366; color: #fff; box-shadow: 0 4px 16px rgba(37,211,102,0.22); }
+    .share-wa:hover { background: #1ebe5a; transform: translateY(-2px); box-shadow: 0 8px 24px rgba(37,211,102,0.32); }
     .share-copy {
-      background: rgba(232,226,216,0.08);
-      color: var(--text);
-      border: 1px solid rgba(232,226,216,0.15) !important;
+      background: #FFFFFF;
+      color: var(--ink);
+      border: 1.5px solid var(--border-med) !important;
+      box-shadow: var(--shadow-sm);
     }
-    .share-copy:hover {
-      background: rgba(232,226,216,0.14);
-      transform: translateY(-2px);
-    }
+    .share-copy:hover { background: var(--cream-dark); transform: translateY(-2px); }
     .share-copy.copied {
-      background: rgba(160,98,42,0.2);
-      border-color: rgba(160,98,42,0.4) !important;
-      color: #A0622A;
+      background: var(--terra-pale);
+      border-color: rgba(196,96,58,0.4) !important;
+      color: var(--terra-dark);
     }
 
     .restart-btn {
       background: none;
       border: none;
-      color: rgba(232,226,216,0.25);
+      color: var(--ink-soft);
       font-family: 'DM Sans', sans-serif;
       font-size: 13px;
       cursor: pointer;
@@ -558,7 +542,61 @@
       margin: 0 auto;
       padding-bottom: 20px;
     }
-    .restart-btn:hover { color: rgba(232,226,216,0.5); }
+    .restart-btn:hover { color: var(--ink-med); }
+
+    /* ══ SUMMARY ══ */
+    #screen-summary { gap: 0; justify-content: flex-start; animation: slideUp 0.5s ease-out; }
+
+    .summary-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: 28px;
+    }
+    .summary-item {
+      padding: 16px 20px;
+      background: #FFFFFF;
+      border: 1.5px solid var(--border);
+      border-radius: 14px;
+      box-shadow: var(--shadow-sm);
+      animation: slideUp 0.4s ease-out both;
+    }
+    .summary-q {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--ink-soft);
+      margin-bottom: 6px;
+    }
+    .summary-a {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 14.5px;
+      color: var(--ink);
+      font-weight: 400;
+      line-height: 1.5;
+    }
+
+    /* ══ GUEST BANNER ══ */
+    #guest-banner {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      padding: 12px 20px;
+      text-align: center;
+      background: rgba(246,240,230,0.95);
+      backdrop-filter: blur(8px);
+      border-bottom: 1.5px solid rgba(196,96,58,0.2);
+      box-shadow: 0 2px 12px rgba(28,20,16,0.08);
+    }
+    #guest-banner p {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 13px;
+      color: var(--ink-med);
+      margin-bottom: 8px;
+    }
 
     @media (max-width: 400px) {
       #app { padding: 32px 20px; }
@@ -571,20 +609,39 @@
   <!-- INTRO -->
   <div id="screen-intro" class="screen">
     <div>
-      <img src="logo.png" alt="My Bright Leaf" style="width:180px;margin-bottom:24px;filter:invert(1);mix-blend-mode:screen;opacity:0.9" />
+      <img src="logo.png" alt="My Bright Leaf" style="width:180px;margin-bottom:24px;opacity:0.85" />
       <h1>¿Qué tipo de <em>autor</em> eres?</h1>
       <div class="divider-line"></div>
+      <div style="color:var(--terra);opacity:0.7;margin:6px 0 22px">
+        <svg width="62" height="62" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg">
+          <!-- Páginas izquierda y derecha del libro abierto -->
+          <path d="M32 14C24 10 12 11 7 14L7 52C12 49 24 48 32 52Z"/>
+          <path d="M32 14C40 10 52 11 57 14L57 52C52 49 40 48 32 52Z"/>
+          <!-- Lomo -->
+          <line x1="32" y1="14" x2="32" y2="52"/>
+          <!-- Líneas de texto — página izquierda -->
+          <line x1="12" y1="23" x2="27" y2="22"/>
+          <line x1="12" y1="29" x2="27" y2="28"/>
+          <line x1="12" y1="35" x2="27" y2="34"/>
+          <line x1="12" y1="41" x2="21" y2="40.5"/>
+          <!-- Líneas de texto — página derecha -->
+          <line x1="37" y1="22" x2="52" y2="23"/>
+          <line x1="37" y1="28" x2="52" y2="29"/>
+          <line x1="37" y1="34" x2="52" y2="35"/>
+          <line x1="37" y1="40.5" x2="48" y2="41"/>
+        </svg>
+      </div>
       <p class="subtitle">Responde 5 preguntas y descubre en qué etapa estás, qué necesita tu libro para avanzar y cuál es tu próximo paso más importante.</p>
     </div>
     <div style="display:flex;flex-direction:column;gap:16px;align-items:flex-start">
       <button class="cta-btn" onclick="startQuiz()">Comenzar el test →</button>
-      <p style="font-family:'DM Sans',sans-serif;font-size:13px;color:rgba(232,226,216,0.3)">2 minutos · Resultado inmediato</p>
+      <p style="font-family:'DM Sans',sans-serif;font-size:13px;color:var(--ink-soft)">2 minutos · Resultado inmediato</p>
     </div>
   </div>
 
-  <!-- BANNER INVITADO (se muestra cuando alguien abre un link compartido) -->
-  <div id="guest-banner" style="display:none;position:fixed;top:0;left:0;right:0;z-index:100;padding:12px 20px;text-align:center;background:rgba(10,26,18,0.92);backdrop-filter:blur(8px);border-bottom:1px solid rgba(160,98,42,0.3);">
-    <p style="font-family:'DM Sans',sans-serif;font-size:13px;color:rgba(232,226,216,0.7);margin-bottom:8px" id="guest-banner-text"></p>
+  <!-- GUEST BANNER -->
+  <div id="guest-banner">
+    <p id="guest-banner-text"></p>
     <button class="cta-btn" style="padding:10px 24px;font-size:13px" onclick="startQuiz();document.getElementById('guest-banner').style.display='none'">Descubrí cuál es el tuyo →</button>
   </div>
 
@@ -604,10 +661,23 @@
     </div>
   </div>
 
-  <!-- EMAIL CAPTURE (before result) -->
+  <!-- EMAIL CAPTURE -->
   <div id="screen-email" class="screen">
     <div class="email-header">
-      <div class="check-icon">✦</div>
+      <div class="check-icon" style="color:var(--terra);line-height:1">
+        <svg width="48" height="48" viewBox="0 0 52 52" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg">
+          <!-- Cuerpo del libro cerrado -->
+          <rect x="4" y="4" width="28" height="38" rx="4"/>
+          <!-- Lomo interno -->
+          <line x1="11" y1="4" x2="11" y2="42"/>
+          <!-- Líneas de texto -->
+          <line x1="17" y1="13" x2="28" y2="13"/>
+          <line x1="17" y1="19" x2="28" y2="19"/>
+          <line x1="17" y1="25" x2="24" y2="25"/>
+          <!-- Estrella / resultado listo -->
+          <path d="M38 20L39.5 25H45L40.5 28L42 33L38 30L34 33L35.5 28L31 25H36.5Z" stroke-width="1.4"/>
+        </svg>
+      </div>
       <h2>Tu resultado está listo.</h2>
       <p>Descubre qué tipo de autor eres y recibe 3 pasos concretos para avanzar.</p>
     </div>
@@ -626,10 +696,22 @@
     <p class="form-note">Sin spam · Puedes cancelar cuando quieras</p>
   </div>
 
+  <!-- SUMMARY -->
+  <div id="screen-summary" class="screen">
+    <div class="summary-top">
+      <p class="label" style="margin-bottom:10px">Tus respuestas</p>
+      <h2 style="font-size:clamp(22px,5.5vw,28px);font-weight:400;margin-bottom:6px">Esto es lo que nos contaste.</h2>
+      <p style="font-family:'DM Sans',sans-serif;font-size:14px;color:var(--ink-soft);margin-bottom:32px">Tu resultado está listo del otro lado.</p>
+    </div>
+    <div class="summary-list" id="summary-list"></div>
+    <button class="cta-btn full" id="summary-reveal-btn" style="margin-top:8px">Ver mi resultado →</button>
+  </div>
+
   <!-- RESULT -->
   <div id="screen-result" class="screen">
     <div class="result-header">
       <p class="label" style="margin-bottom:16px">Tu resultado</p>
+      <div id="result-icon" style="margin-bottom:16px;display:flex;justify-content:center;align-items:center"></div>
       <img id="result-img" class="archetype-img" src="" alt="" />
       <div class="archetype-badge" id="result-badge" style="margin-bottom:8px"></div>
       <p class="archetype-subtitle" id="result-subtitle"></p>
@@ -661,8 +743,6 @@
         </button>
       </div>
     </div>
-
-    <button class="restart-btn" onclick="restart()">← Volver a hacer el test</button>
   </div>
 
 </div>
@@ -673,7 +753,7 @@ const ARCHETYPES = {
     name: "El Creador",
     subtitle: "el que todavía está escribiendo o armando su libro",
     emoji: "✦",
-    color: "#D4A574",
+    color: "#C4603A",
     image: "creador.png",
     tagline: "Tu libro vive dentro de ti. Solo necesita el camino para salir al mundo.",
     description: "Tienes la visión, la pasión y probablemente páginas escritas que nadie ha leído todavía. Tu mayor fortaleza es la profundidad de tu mensaje. Tu desafío es pasar del manuscrito a un libro real que la gente pueda encontrar, comprar y leer.",
@@ -681,15 +761,16 @@ const ARCHETYPES = {
     nextSteps: [
       "Define la estructura final de tu libro en un índice de 10-15 capítulos",
       "Investiga tu categoría en Amazon para entender qué títulos compiten",
-      "Establece una fecha de publicación realista y trabaja hacia atrás"
+      "Abrí un calendario y bloqueá 3 horas semanales exclusivas para tu libro hasta terminarlo"
     ],
-    pack: "Estrategia editorial completa"
+    pack: "Estrategia editorial completa",
+    icon: '<path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"/><line x1="15" y1="5" x2="19" y2="9"/>'
   },
   lanzador: {
     name: "El Lanzador",
     subtitle: "el que tiene libro listo pero no sabe cómo sacarlo al mundo",
     emoji: "◈",
-    color: "#7B9E6B",
+    color: "#B07A18",
     image: "lanzador.png",
     tagline: "Tu libro existe. Ahora necesita su momento de entrada al mundo.",
     description: "Tu libro está listo o casi listo. No te falta contenido — te falta estrategia de salida. Sabes que publicar no es suficiente, que necesitas generar expectativa, pero no sabes por dónde empezar ni qué producir primero.",
@@ -699,13 +780,14 @@ const ARCHETYPES = {
       "Prepara 5 piezas de contenido para redes antes del lanzamiento",
       "Diseña una secuencia de 3 emails de pre-lanzamiento para tu red cercana"
     ],
-    pack: "Pack de lanzamiento"
+    pack: "Pack de lanzamiento",
+    icon: '<line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/>'
   },
   invisible: {
     name: "El Invisible",
     subtitle: "el que ya publicó pero nadie lo ve",
     emoji: "◉",
-    color: "#8B7BA8",
+    color: "#7060A8",
     image: "invisible.png",
     tagline: "Tu libro ya existe. El problema es que el mundo todavía no lo sabe.",
     description: "Publicaste, quizá hasta estás en Amazon, pero las ventas no llegan. No tienes contenido para redes, no sabes cómo mostrar tu libro, y sientes que gritas al vacío. Tu libro merece lectores — solo necesita ser visible.",
@@ -715,13 +797,14 @@ const ARCHETYPES = {
       "Graba 4 videos cortos respondiendo preguntas que tu lector ideal haría",
       "Optimiza tu descripción y keywords en las plataformas donde vendes"
     ],
-    pack: "Pack de visibilidad"
+    pack: "Pack de visibilidad",
+    icon: '<path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/>'
   },
   artesano: {
     name: "El Artesano",
     subtitle: "el que hizo todo solo y se nota",
     emoji: "◆",
-    color: "#C4756E",
+    color: "#B06020",
     image: "artesano.png",
     tagline: "Tu libro tiene alma. Ahora necesita una imagen que esté a su altura.",
     description: "Hiciste todo tú mismo o con recursos mínimos. La portada no transmite profesionalismo, la contratapa no vende, y cuando alguien ve tu libro en miniatura no entiende de qué se trata. El contenido puede ser brillante, pero la primera impresión no lo refleja.",
@@ -731,7 +814,8 @@ const ARCHETYPES = {
       "Reescribe tu contratapa enfocándote en el beneficio para el lector, no en el contenido",
       "Pide opinión sincera a 3 personas que NO sean familia sobre tu portada actual"
     ],
-    pack: "Pack de imagen editorial"
+    pack: "Pack de imagen editorial",
+    icon: '<polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>'
   }
 };
 
@@ -751,7 +835,7 @@ const QUESTIONS = [
       { text: "Tengo mucho que decir, pero todavía no termino de armarlo", points: { creador:3, lanzador:1, invisible:0, artesano:0 } },
       { text: "Mi libro está listo, pero no sé cómo presentarlo al mundo", points: { creador:0, lanzador:3, invisible:0, artesano:1 } },
       { text: "Ya publiqué, pero siento que nadie sabe que existo", points: { creador:0, lanzador:0, invisible:3, artesano:1 } },
-      { text: "Todo lo hice yo y creo que se nota demasiado", points: { creador:1, lanzador:0, invisible:0, artesano:3 } }
+      { text: "Algo en mí sabe que es el momento, pero algo más me detiene", points: { creador:1, lanzador:0, invisible:0, artesano:3 } }
     ]
   },
   {
@@ -767,32 +851,30 @@ const QUESTIONS = [
     question: "¿Quién sabe hoy que tu libro existe?",
     options: [
       { text: "Básicamente yo y quizás mi familia", points: { creador:3, lanzador:0, invisible:0, artesano:1 } },
-      { text: "Tengo una lista o comunidad esperando, pero no los he activado", points: { creador:0, lanzador:3, invisible:1, artesano:0 } },
-      { text: "Está en Amazon o redes pero no llega a nadie nuevo", points: { creador:0, lanzador:1, invisible:3, artesano:0 } },
+      { text: "Tengo una comunidad, pero aún no saben que tengo un libro", points: { creador:0, lanzador:3, invisible:1, artesano:0 } },
+      { text: "Está publicado, pero siento que no está llegando a las personas correctas", points: { creador:0, lanzador:1, invisible:3, artesano:0 } },
       { text: "Lo promocioné pero no obtuve la respuesta que esperaba", points: { creador:0, lanzador:0, invisible:1, artesano:3 } }
     ]
   },
   {
     question: "¿Cuál de estas imágenes se parece más a tu situación?",
     options: [
-      { text: "📓 Un cuaderno lleno de ideas esperando convertirse en algo más grande", points: { creador:3, lanzador:0, invisible:0, artesano:1 } },
-      { text: "🚀 Un cohete en la plataforma de lanzamiento, listo pero sin cuenta regresiva", points: { creador:0, lanzador:3, invisible:1, artesano:0 } },
+      { text: "🌱 Una semilla con todo el potencial pero aún bajo tierra", points: { creador:3, lanzador:0, invisible:0, artesano:1 } },
+      { text: "🌅 Un amanecer que ocurre sin que nadie se haya levantado a verlo", points: { creador:0, lanzador:3, invisible:1, artesano:0 } },
       { text: "🏝️ Una isla hermosa que no aparece en ningún mapa", points: { creador:0, lanzador:0, invisible:3, artesano:1 } },
-      { text: "💎 Una joya valiosa en un empaque que no le hace justicia", points: { creador:0, lanzador:1, invisible:0, artesano:3 } }
+      { text: "🖼️ Una obra de arte colgada en el lugar equivocado", points: { creador:0, lanzador:1, invisible:0, artesano:3 } }
     ]
   }
 ];
 
-// State
 let state = {
   currentQ: 0,
   scores: { creador:0, lanzador:0, invisible:0, artesano:0 },
+  answers: [],
   result: null,
   selected: null,
   transitioning: false
 };
-
-// Init archetype hints on intro screen
 
 function showScreen(id) {
   document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
@@ -800,7 +882,7 @@ function showScreen(id) {
 }
 
 function startQuiz() {
-  state = { currentQ:0, scores:{creador:0,lanzador:0,invisible:0,artesano:0}, result:null, selected:null, transitioning:false };
+  state = { currentQ:0, scores:{creador:0,lanzador:0,invisible:0,artesano:0}, answers:[], result:null, selected:null, transitioning:false };
   showScreen('screen-quiz');
   renderQuestion();
 }
@@ -810,17 +892,14 @@ function renderQuestion() {
   document.getElementById('question-counter').textContent = `Pregunta ${state.currentQ + 1} de ${QUESTIONS.length}`;
   document.getElementById('question-text').textContent = q.question;
 
-  // Update progress bar
   for (let i = 0; i < 5; i++) {
-    const seg = document.getElementById(`seg-${i}`);
-    seg.classList.toggle('filled', i < state.currentQ);
+    document.getElementById(`seg-${i}`).classList.toggle('filled', i < state.currentQ);
   }
 
-  // Render options
   const list = document.getElementById('options-list');
   list.innerHTML = '';
   q.options.forEach((opt, idx) => {
-    const letter = ['A', 'B', 'C', 'D'][idx];
+    const letter = ['A','B','C','D'][idx];
     const btn = document.createElement('button');
     btn.className = 'option-btn revealed';
     btn.style.animationDelay = `${idx * 0.08}s`;
@@ -836,12 +915,9 @@ function selectOption(opt, idx) {
   if (state.selected !== null || state.transitioning) return;
   state.selected = idx;
 
-  // Add points
-  Object.keys(opt.points).forEach(k => {
-    state.scores[k] += opt.points[k];
-  });
+  Object.keys(opt.points).forEach(k => { state.scores[k] += opt.points[k]; });
+  state.answers.push({ q: `Pregunta ${state.currentQ + 1}`, a: opt.text });
 
-  // Visual feedback
   const btns = document.querySelectorAll('.option-btn');
   btns.forEach((btn, i) => {
     if (i === idx) btn.classList.add('selected');
@@ -857,9 +933,8 @@ function selectOption(opt, idx) {
         body.classList.remove('transitioning');
         renderQuestion();
       } else {
-        // Calculate result
         state.result = Object.entries(state.scores).reduce((a, b) => a[1] > b[1] ? a : b)[0];
-        showScreen('screen-email');
+        showSummary();
       }
     }, 400);
   }, 600);
@@ -884,22 +959,19 @@ function handleEmailSubmit() {
   const email = emailInput.value.trim();
   const emailValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 
-  clearFieldError('input-name', 'error-name');
-  clearFieldError('input-email', 'error-email');
+  clearFieldError('input-name','error-name');
+  clearFieldError('input-email','error-email');
 
-  if (!name) { showFieldError('input-name', 'error-name'); return; }
-  if (!email || !emailValid) { showFieldError('input-email', 'error-email'); return; }
+  if (!name) { showFieldError('input-name','error-name'); return; }
+  if (!email || !emailValid) { showFieldError('input-email','error-email'); return; }
 
   const btn = document.getElementById('email-submit-btn');
   btn.disabled = true;
   btn.textContent = 'Enviando…';
 
   const archetype = state.result;
-
   const SHEETS_URL = 'https://script.google.com/macros/s/AKfycbzMC4Dlo_7zkSUx3DhFU_ebBk93SmJlKI8aFNuqRrac7pu2ILDWPT5KjENH1Wj2pnJEdA/exec';
 
-  // Send directly to Google Sheets (works on GitHub Pages and Vercel)
-  // mode: 'no-cors' + text/plain evita el preflight CORS que bloquea Apps Script
   fetch(SHEETS_URL, {
     method: 'POST',
     mode: 'no-cors',
@@ -907,7 +979,6 @@ function handleEmailSubmit() {
     body: JSON.stringify({ name, email, archetype })
   }).catch(() => {});
 
-  // Send to GetResponse via Vercel serverless (only works on Vercel)
   fetch('/api/subscribe', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
@@ -917,9 +988,32 @@ function handleEmailSubmit() {
   showResult(name);
 }
 
+function showSummary() {
+  const list = document.getElementById('summary-list');
+  list.innerHTML = '';
+  state.answers.forEach((item, i) => {
+    const div = document.createElement('div');
+    div.className = 'summary-item';
+    div.style.animationDelay = `${i * 0.07}s`;
+    div.innerHTML = `
+      <p class="summary-q">${item.q}</p>
+      <p class="summary-a">${item.a}</p>
+    `;
+    list.appendChild(div);
+  });
+  document.getElementById('summary-reveal-btn').onclick = () => showScreen('screen-email');
+  showScreen('screen-summary');
+}
+
 function showResult(name) {
   const key = state.result;
   const a = ARCHETYPES[key];
+
+  // Ícono SVG por arquetipo
+  const iconEl = document.getElementById('result-icon');
+  if (iconEl && a.icon) {
+    iconEl.innerHTML = `<svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="${a.color}" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">${a.icon}</svg>`;
+  }
 
   const img = document.getElementById('result-img');
   img.src = a.image;
@@ -928,7 +1022,7 @@ function showResult(name) {
   const badge = document.getElementById('result-badge');
   badge.textContent = a.name;
   badge.style.background = `${a.color}18`;
-  badge.style.border = `1px solid ${a.color}40`;
+  badge.style.border = `1.5px solid ${a.color}40`;
   badge.style.color = a.color;
 
   const subtitleEl = document.getElementById('result-subtitle');
@@ -940,43 +1034,40 @@ function showResult(name) {
   document.getElementById('result-tagline').textContent = `"${a.tagline}"`;
   document.getElementById('result-description').textContent = a.description;
 
-  // Strengths
   const pillsContainer = document.getElementById('result-strengths');
   pillsContainer.innerHTML = '';
   a.strengths.forEach(s => {
     const span = document.createElement('span');
     span.className = 'pill';
     span.textContent = s;
-    span.style.background = `${a.color}10`;
-    span.style.border = `1px solid ${a.color}25`;
+    span.style.background = `${a.color}12`;
+    span.style.border = `1.5px solid ${a.color}28`;
     span.style.color = a.color;
     pillsContainer.appendChild(span);
   });
 
-  // Steps
   const stepsContainer = document.getElementById('result-steps');
   stepsContainer.innerHTML = '';
   a.nextSteps.forEach((step, i) => {
     const div = document.createElement('div');
     div.className = 'step-item';
     div.innerHTML = `
-      <div class="step-number" style="background:${a.color}20;color:${a.color}">${i+1}</div>
+      <div class="step-number" style="background:${a.color}18;color:${a.color}">${i+1}</div>
       <p class="step-text">${step}</p>
     `;
     stepsContainer.appendChild(div);
   });
 
-  // CTA card — fixed purple accent
-  const PURPLE = '#8B7BA8';
+  const PURPLE = '#7060A8';
   const card = document.getElementById('result-cta-card');
-  card.style.background = `linear-gradient(135deg, ${PURPLE}22, ${PURPLE}38)`;
-  card.style.border = `1px solid ${PURPLE}70`;
-  card.style.boxShadow = `0 0 28px ${PURPLE}28`;
+  card.style.background = `linear-gradient(135deg, ${PURPLE}14, ${PURPLE}28)`;
+  card.style.border = `1.5px solid ${PURPLE}50`;
+  card.style.boxShadow = `0 0 28px ${PURPLE}18`;
 
   const firstName = name ? name.split(' ')[0] : '';
   document.getElementById('result-cta-text').innerHTML = firstName
-    ? `¡Listo, <strong style="color:${PURPLE}">${firstName}</strong>! Revisa tu correo — te enviamos algo especial solo para ti.`
-    : `¡Listo! Revisa tu correo — te enviamos algo especial solo para ti.`;
+    ? `¡Listo, <strong style="color:${PURPLE}">${firstName}</strong>! Revisa tu correo, te enviamos algo especial solo para ti.`
+    : `¡Listo! Revisa tu correo, te enviamos algo especial solo para ti.`;
 
   showScreen('screen-result');
 }
@@ -984,7 +1075,7 @@ function showResult(name) {
 function shareWhatsApp() {
   const a = ARCHETYPES[state.result];
   const base = window.location.href.split('?')[0];
-  const firstName = (document.getElementById('input-name').value.trim() || '').split(' ')[0];
+  const firstName = (document.getElementById('input-name').value.trim()||'').split(' ')[0];
   const params = new URLSearchParams({ r: state.result });
   if (firstName) params.set('n', firstName);
   const url = `${base}?${params.toString()}`;
@@ -994,8 +1085,7 @@ function shareWhatsApp() {
 
 function copyLink() {
   const base = window.location.href.split('?')[0];
-  const a = ARCHETYPES[state.result];
-  const firstName = (document.getElementById('input-name').value.trim() || '').split(' ')[0];
+  const firstName = (document.getElementById('input-name').value.trim()||'').split(' ')[0];
   const params = new URLSearchParams({ r: state.result });
   if (firstName) params.set('n', firstName);
   const url = `${base}?${params.toString()}`;
@@ -1005,10 +1095,7 @@ function copyLink() {
     const label = document.getElementById('copy-label');
     btn.classList.add('copied');
     label.textContent = '¡Copiado!';
-    setTimeout(() => {
-      btn.classList.remove('copied');
-      label.textContent = 'Copiar link';
-    }, 2500);
+    setTimeout(() => { btn.classList.remove('copied'); label.textContent = 'Copiar link'; }, 2500);
   }
 
   if (navigator.clipboard && window.isSecureContext) {
@@ -1023,8 +1110,7 @@ function fallbackCopy(text, callback) {
   ta.value = text;
   ta.style.cssText = 'position:fixed;opacity:0;top:0;left:0';
   document.body.appendChild(ta);
-  ta.focus();
-  ta.select();
+  ta.focus(); ta.select();
   try { document.execCommand('copy'); callback(); } catch(e) {}
   document.body.removeChild(ta);
 }
@@ -1038,10 +1124,9 @@ function restart() {
   showScreen('screen-intro');
 }
 
-document.getElementById('input-name').addEventListener('input', () => clearFieldError('input-name', 'error-name'));
-document.getElementById('input-email').addEventListener('input', () => clearFieldError('input-email', 'error-email'));
+document.getElementById('input-name').addEventListener('input', () => clearFieldError('input-name','error-name'));
+document.getElementById('input-email').addEventListener('input', () => clearFieldError('input-email','error-email'));
 
-// Detect shared result link (?r=archetype&n=name)
 (function checkSharedResult() {
   const params = new URLSearchParams(window.location.search);
   const r = params.get('r');
@@ -1051,8 +1136,7 @@ document.getElementById('input-email').addEventListener('input', () => clearFiel
     showResult(n || '');
     document.getElementById('screen-result').style.paddingTop = '80px';
     const banner = document.getElementById('guest-banner');
-    const bannerText = document.getElementById('guest-banner-text');
-    bannerText.textContent = n
+    document.getElementById('guest-banner-text').textContent = n
       ? `${n} es ${ARCHETYPES[r].name}. ¿Qué tipo de autor eres tú?`
       : `Este es el resultado de alguien. ¿Qué tipo de autor eres tú?`;
     banner.style.display = 'block';
