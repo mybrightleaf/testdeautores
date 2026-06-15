@@ -985,7 +985,11 @@ function handleEmailSubmit() {
     headers: { 'Content-Type': 'text/plain' },
     body: JSON.stringify({ name, email, archetype })
   }).catch(() => {});
-
+fetch('https://hook.us2.make.com/qvqlplm880selwqj14wmfyor89od42vd', {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify({ name, email, archetype })
+}).catch(() => {});
   fetch('/api/subscribe', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
